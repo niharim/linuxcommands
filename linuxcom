@@ -1,0 +1,35 @@
+ALGORITHM:
+	•	Start
+	•	Get the directory name from the user
+	•	Open the directory
+	•	List the files in the particular directory
+	•	Stop
+CODE:
+#include<stdio.h>
+#include<dirent.h>
+#include<unistd.h>
+#ifndef MAX_BUF
+#define MAX_BUF 200
+#endif
+#include<stdlib.h>
+main()
+{
+    char path[MAX_BUF];   
+    getcwd(path, MAX_BUF);
+    printf("Current working directory: %s\n", path);
+    char dirname[10];
+    DIR*p;
+    struct dirent *d;
+    printf("Enter directory name\n");
+    scanf("%s",dirname);
+    p=opendir(dirname);
+    if(p==NULL)
+    {
+        perror("Cannot find directory");
+        exit(-1);
+    }
+    while(d=readdir(p))
+    {
+        printf("%s\n",d->d_name);
+    }
+}
